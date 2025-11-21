@@ -1,5 +1,184 @@
 /*
   VASTRA — style.css
+  Global styles for index, owners, and socials pages
+  Font: Space Grotesk (loaded in each HTML)
+  Aesthetic: minimal, dark, muted red accent (#d72828)
+*/
+
+:root{
+  --bg: #0e0e0e;
+  --muted-red: #d72828;
+  --muted-text: #cfcfcf;
+  --muted-sub: #9a9a9a;
+  --accent: #d72828;
+  --white-pearl: #F3F2EE; /* cultured pearl */
+  --glass: rgba(255,255,255,0.03);
+  --radius: 8px;
+  --transition: 0.28s ease;
+  --hero-fade-duration: 1000ms;
+  --hero-interval: 4000ms;
+}
+
+/* Base reset */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--muted-text);
+  font-family:'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+.container{width:min(1200px,94%);margin:0 auto}
+
+/* NAV */
+.nav-wrap{position:fixed;left:0;right:0;top:0;z-index:80}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;backdrop-filter:blur(6px);background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.02)}
+.logo{height:56px}
+.nav-links{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.nav-links a{color:var(--white-pearl);text-decoration:none;font-weight:600;letter-spacing:0.6px;transition:all var(--transition)}
+.nav-links a:hover{color:var(--accent);letter-spacing:1.6px}
+
+/* Mobile nav toggle (keeps layout simple) */
+.nav-toggle{display:none}
+.nav-toggle-label{display:none}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:520px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+/* fallback hero bg (kept for very old browsers) */
+.hero-bg{position:absolute;inset:0;background:url('assets/hero.jpg') center/cover no-repeat;filter:brightness(0.6);z-index:0}
+/* slides created by JS; crossfade using opacity */
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity var(--hero-fade-duration) ease-in-out;will-change:opacity;z-index:0}
+.hero-slide.is-active{opacity:1}
+.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.45);z-index:2}
+.hero-content{position:relative;z-index:3;text-align:center;padding:6rem 0;color:var(--white-pearl)}
+.hero-title{font-size:clamp(2rem,5vw,4rem);margin:0 0.6rem 0.6rem;font-weight:700;color:var(--white-pearl)}
+.hero-sub{color:rgba(255,255,255,0.9);margin:0 0 1.4rem}
+.cta{display:inline-block;padding:12px 24px;border-radius:8px;border:2px solid var(--accent);color:var(--accent);text-decoration:none;transition:all var(--transition);background:transparent}
+.cta:hover{background:var(--accent);color:#fff;transform:translateY(-4px)}
+
+/* SECTIONS */
+.section{padding:6rem 0}
+.section-title{color:var(--white-pearl);margin:0 0 1.2rem}
+
+/* Categories */
+.categories-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cat-card{background:rgba(255,255,255,0.02);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform var(--transition),background var(--transition);display:flex;flex-direction:column}
+.cat-card img{width:100%;height:220px;object-fit:cover}
+.cat-card h3{margin:14px;padding:0 16px 22px;color:var(--white-pearl)}
+.cat-card:hover{background:var(--accent);color:#fff;transform:translateY(-6px)}
+
+/* Inspired horizontal row */
+.inspired-row{display:flex;gap:18px;padding:12px 6px 36px 6px;overflow-x:auto;scrollbar-width:none}
+.inspired-row::-webkit-scrollbar{display:none}
+.inspired-row img{height:60vh;min-width:260px;border-radius:10px;object-fit:cover;transition:transform 0.3s ease}
+.inspired-row img:hover{transform:scale(1.05)}
+
+/* Founders grid */
+.founders-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.founder-card{background:transparent;border-radius:10px;padding:18px;text-align:center;color:var(--white-pearl)}
+.founder-card img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 12px}
+.founder-card h4{margin:0}
+.founder-card p{margin:6px 0 0;color:var(--muted-sub)}
+
+/* Shop grid */
+.shop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.shop-card{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;text-align:center}
+.shop-card img{width:100%;height:200px;object-fit:cover;border-radius:8px}
+
+/* Owners page modal */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:100}
+.modal.show{display:flex}
+.modal-dialog{background:#111;padding:22px;border-radius:12px;max-width:520px;width:94%;color:var(--white-pearl);box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+.modal-close{position:absolute;right:18px;top:18px;background:transparent;border:0;color:var(--white-pearl);font-size:24px;cursor:pointer}
+.modal-body img{width:180px;height:180px;border-radius:50%;display:block;margin:0 auto 12px;object-fit:cover}
+.modal-body h3{margin:6px 0}
+.modal-body p{color:var(--muted-sub)}
+
+/* Socials carousel */
+.socials-carousel-wrap{display:flex;align-items:center;gap:12px}
+.socials-carousel{display:flex;gap:12px;overflow:hidden;padding:12px}
+.socials-carousel img{width:180px;height:300px;object-fit:cover;border-radius:8px}
+.carousel-btn{background:rgba(255,255,255,0.04);border:0;color:var(--white-pearl);padding:8px 12px;border-radius:8px;cursor:pointer}
+.carousel-btn:hover{background:var(--accent);color:#fff}
+
+/* Responsive */
+@media (max-width: 992px){
+  .categories-grid{grid-template-columns:repeat(2,1fr)}
+  .founders-grid{grid-template-columns:repeat(2,1fr)}
+  .shop-grid{grid-template-columns:1fr}
+}
+
+@media (max-width: 640px){
+  .nav{padding:12px 0}
+  .logo{height:48px}
+  .hero-content{padding:4rem 0}
+  .inspired-row img{height:44vh}
+  .hero-title{font-size:clamp(1.6rem,7vw,2.4rem)}
+  .container{width:94%}
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .hero-slide{transition:none}
+  *{transition:none!important}
+}
+
+/* Small utilities */
+.muted{color:var(--muted-sub)}
+
+/* End of file */
+/* ALERT MARQUEE */
+.alert-marquee{
+  width:100%;
+  background:#000;
+  height:48px; /* target between 40-50px */
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  position:relative;
+  z-index:50;
+}
+.marquee-track{
+  position:relative;
+  width:100%;
+  overflow:hidden; /* ensure the moving text is clipped to viewport */
+  white-space:nowrap;
+}
+.marquee-track span{
+  display:inline-block;
+  color:#ffffff;
+  background:#000;
+  padding:0 10px;
+  font-weight:700;
+  letter-spacing:2.4px;
+  font-size:clamp(13px,2.2vw,18px);
+  line-height:1;
+  text-shadow:0 2px 8px rgba(0,0,0,0.6);
+  will-change:transform;
+  /* animate from fully off-screen left to fully off-screen right */
+  animation:marquee-full 16s linear infinite;
+}
+
+@keyframes marquee-full{
+  /* Start: far left (element width + viewport) */
+  from { transform: translateX(calc(-100% - 100vw)); }
+  /* End: far right (viewport + element width) */
+  to   { transform: translateX(calc(100vw + 100%)); }
+}
+
+/* Slightly faster on small screens so text stays readable */
+@media (max-width:640px){
+  .alert-marquee{height:44px}
+  .marquee-track span{animation-duration:12s;letter-spacing:1.6px;font-size:14px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .marquee-track span{animation:none}
+}
+/*
+  VASTRA — style.css
   Minimal, futuristic, luxury streetwear styles
   Font: Space Grotesk (imported in HTML)
 */
@@ -11,6 +190,8 @@
   --muted-sub: #9a9a9a;
   --glass-bg: rgba(255,255,255,0.03);
   --hero-img: url('assets/hero.jpg');
+  --hero-fade-duration: 1000ms;
+  --hero-interval: 4500ms;
   --radius: 8px;
   --transition: 0.3s ease;
 }
@@ -60,52 +241,37 @@ body{
 
 /* HERO */
 .hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background-image:var(--hero-img);background-size:cover;background-position:center;filter:contrast(0.85) brightness(0.45);z-index:0}
+.hero-bg{position:absolute;inset:0;background-image:var(--hero-img);background-size:cover;background-position:center;filter:contrast(0.95) brightness(0.60);z-index:0}
+/* Slides inserted by JS: full-bleed backgrounds that crossfade via opacity */
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center center;background-repeat:no-repeat;opacity:0;transition:opacity var(--hero-fade-duration) ease-in-out;will-change:opacity;z-index:0;pointer-events:none}
+.hero-slide.is-active{opacity:1}
+/* subtle noise texture overlay above the image for grit */
+.hero-bg::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><filter id='noise'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23noise)' opacity='0.5' /></svg>");background-repeat:repeat;opacity:0.06;mix-blend-mode:overlay;pointer-events:none;z-index:1}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6));z-index:2}
 .hero-content{position:relative;text-align:center;color:#fff;padding:6rem 0;z-index:3}
 /* keep hero text readable on very wide screens */
 .hero-content .container, .hero-content{max-width:1200px;margin:0 auto}
 .hero-title{font-size:clamp(2rem,5vw,4rem);margin:0 0 .6rem;font-weight:700}
 .hero-title{font-family: 'Anton', 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;line-height:0.95}
-/* White fill with scratched texture using layered repeating gradients clipped to the text */
 .hero-title{
-  /* base white with two layered scratch patterns */
-  background-image:
-    linear-gradient(#ffffff,#ffffff),
-    repeating-linear-gradient(-45deg, rgba(0,0,0,0) 0 6px, rgba(0,0,0,0.14) 6px 7px),
-    repeating-linear-gradient(20deg, rgba(0,0,0,0) 0 10px, rgba(0,0,0,0.08) 10px 11px);
-  background-size: auto, 6px 6px, 10px 10px;
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  letter-spacing: .6px;
-
-  /* Neon white glow (multiple layered glows) */
-  text-shadow:
-    0 0 6px rgba(255,255,255,0.95),
-    0 0 16px rgba(255,255,255,0.85),
-    0 0 28px rgba(255,255,255,0.6),
-    0 8px 30px rgba(0,0,0,0.55);
-
-  /* gentle pulsing neon effect */
-  animation: neonPulse 3.6s ease-in-out infinite;
+  font-size:clamp(2rem,5vw,4rem);
+  margin:0 0 .6rem;
+  font-weight:700;
+  font-family: 'Special Elite', 'Courier New', Courier, monospace;
+  line-height:0.95;
+  color: #F3F2EE; /* cultured pearl (soft white) */
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  text-shadow: none !important; /* remove any decorative shadows */
+  transition: transform 0.12s cubic-bezier(.22,.98,.36,1);
+  will-change: transform;
+  display:inline-block;
 }
 
-@keyframes neonPulse{
-  0%,100%{
-    text-shadow:
-      0 0 6px rgba(255,255,255,0.85),
-      0 0 16px rgba(255,255,255,0.65),
-      0 0 28px rgba(255,255,255,0.4),
-      0 8px 30px rgba(0,0,0,0.55);
-    transform:translateY(0);
-  }
-  50%{
-    text-shadow:
-      0 0 10px rgba(255,255,255,1),
-      0 0 26px rgba(255,255,255,0.95),
-      0 0 40px rgba(255,255,255,0.7),
-      0 10px 34px rgba(0,0,0,0.5);
-    transform:translateY(-2px);
-  }
+/* subtle responsive scale so title reads nicely on small screens */
+@media (max-width: 640px){
+  .hero-title{font-size:clamp(1.6rem,7vw,2.4rem)}
 }
 .hero-sub{color:rgba(255,255,255,0.85);margin:0 0 1.5rem;font-weight:300}
 .cta{display:inline-block;padding:12px 22px;border-radius:8px;border:2px solid var(--muted-red);color:var(--muted-red);text-decoration:none;transition:var(--transition);background:transparent}
